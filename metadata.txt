@@ -27,7 +27,7 @@ tags=accuracy, similarity, accuracy assessment, theme similarity, edge similarit
 
 
 
-homepage=https://salomoneinstein.com
+homepage=https://github.com/salomoneinstein/QuickStepGeobia
 category=Plugins
 icon=icon.png
 # experimental flag
