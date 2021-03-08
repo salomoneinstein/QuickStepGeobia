@@ -6,7 +6,7 @@
 name=Quick STEP GEOBIA
 qgisMinimumVersion=3.0
 description=Accuracy assessment of object-based image classification - GEOBIA
-version=0.1
+version=0.1.1
 author=Salomón Einstein, Ivan Lizarazo
 email=seramirezf@correo.udistrital.edu.co, ializarazos@unal.edu.co
 
