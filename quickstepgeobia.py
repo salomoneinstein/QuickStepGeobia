@@ -278,8 +278,7 @@ class QuickStepGeobia:
         elif self.dlg.txtDirName.text() == '':
             QMessageBox.critical(None, "Error", "Please select results output directory")
         elif self.isfloat(self.dlg.txtEpsilon.text()) == False:
-            QMessageBox.critical(None, "Error", \ 
-                                "The allowable horizontal error value must be numeric")
+            QMessageBox.critical(None, "Error", "The allowable horizontal error value must be numeric")
         else:
             epsilon = float(self.dlg.txtEpsilon.text())
 
