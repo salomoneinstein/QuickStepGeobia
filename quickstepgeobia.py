@@ -238,16 +238,24 @@ class QuickStepGeobia:
     
     def clearDialog(self):
         """Restore the GUI"""     
-        self.dlg.txtEpsilon.setValue(0.1)
-        self.dlg.txtEpsilon.setSuffix(" Meters")
         self.dlg.txtDirName.clear()
         self.dlg.txtResults.clear()
-        #self.dlg.progressBar.setValue(0)
+        self.dlg.txtEpsilon.clear()
+        self.dlg.progressBar.setValue(0)
 
         
     def closeDialog(self):
         "Close dialog"
         self.dlg.close()
+
+    
+    def isfloat(self, value):
+        "Check for float"
+        try:
+            float(value)
+            return True
+        except:
+            return False
         
 	
     def assessAccuracy(self):
@@ -256,23 +264,24 @@ class QuickStepGeobia:
         claObjLyr = self.dlg.cboClaObjLyr.currentLayer()
         refObjFld = self.dlg.cboRefObjFld.currentField()
         claObjFld = self.dlg.cboClaObjFld.currentField()
-
-
+ 
         if refObjLyr == None and claObjLyr == None:
-            QMessageBox.critical(None, "Error",
-            "There are not layers in QGIS!. Please add Layers.")
+            QMessageBox.critical(None, "Error", "There are not layers in QGIS. Please add Layers!")
+        elif refObjLyr == '' or claObjLyr == '':
+            QMessageBox.critical(None, "Error", "Please select both layers")
         elif refObjLyr == claObjLyr:
-            QMessageBox.critical(None, "Error",
-            "Reference objects and classified objects are the same!")
+            QMessageBox.critical(None, "Error", "Reference objects and classified objects are the same!")
         elif refObjFld == '' or claObjFld == '':
-            QMessageBox.critical(None, "Error",
-            "Please select category fields.")
+            QMessageBox.critical(None, "Error", "Please select category fields")
+        elif self.dlg.txtEpsilon.text() == '':
+            QMessageBox.critical(None, "Error", "Please enter an allowable horizontal error value!")
         elif self.dlg.txtDirName.text() == '':
-            QMessageBox.critical(None, "Error",
-            "Please select results output directory.")
+            QMessageBox.critical(None, "Error", "Please select results output directory")
+        elif self.isfloat(self.dlg.txtEpsilon.text()) == False:
+            QMessageBox.critical(None, "Error", \ 
+                                "The allowable horizontal error value must be numeric")
         else:
-            #Start accuracy assessment
-            epsilon = self.dlg.txtEpsilon.value()
+            epsilon = float(self.dlg.txtEpsilon.text())
 
             #Objects' number
             nRef = refObjLyr.featureCount()
